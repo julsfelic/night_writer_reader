@@ -23,3 +23,31 @@ and it gives us back an empty txt file.
 
 4. What's the minimum work case?
 * The minimum work case would be that we feed our machine a txt file containing
+a single english character. The machine would do its work, then created a text
+file with the single character converted to braille.
+
+5. What's the next most complex case?
+* The next most complex case would be to have a txt file containing 2 english
+characters and it returns the braille version correctly.
+
+5. What's the next most complex case?
+* The next most complex case would be to have a txt file containing 2 english
+characters and it returns the braille version correctly.
+
+5. What's the next most complex case?
+* The next most complex case would be to have a txt file containing an english
+word and it returns the braille version correctly.
+
+5. What's the next most complex case?
+* The next most complex case would be to have a txt file containing multiple
+words with spaces and it returns the braille version correctly.
+
+5. What's the next most complex case?
+* The next most complex case would be to have a txt file containing words with
+capitals and it returns the braille version correctly.
+
+6. Sketch an algorithm in pseudocode.
+  1. Take in a string containing the letter we will be converting.
+  2. Using the letter, find the corresponding braille version found in a set.
+  3. Pull out that braille version and place it into a string
+  4. Return the braille version
