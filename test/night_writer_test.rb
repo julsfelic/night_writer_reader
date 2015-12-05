@@ -31,6 +31,10 @@ class NightWriterTest < Minitest::Test
   end
 
   def test_accounts_for_spaces_in_the_sentence
-    skip
+    # We pass in the two characters we want converted
+    braille_sentence = @converter.convert_sentence("max and emma")
+
+    # It should match the correct braille version
+    assert_equal braille_sentence, "000.00..0.0000..0.00000.\n...........0.0...0......\n0...00....0.......0.0..."
   end
 end
