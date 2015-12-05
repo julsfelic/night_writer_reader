@@ -43,7 +43,7 @@ class NightWriterTest < Minitest::Test
     assert_equal @converter.current_sentence, ".00.0..00.00\n00..0.0....0\n..000.....0."
   end
 
-  def test_accounts_for_spaces_in_the_sentence
+  def test_for_spaces_in_the_sentence
     # We pass in the two characters we want converted
     @converter.convert_sentence("max and emma")
     @converter.join_sentence
@@ -52,10 +52,56 @@ class NightWriterTest < Minitest::Test
     assert_equal @converter.current_sentence, "000.00..0.0000..0.00000.\n...........0.0...0......\n0...00....0.......0.0..."
   end
 
-  def test_accounts_for_shift_character_for_1_char
+  def test_for_shift_for_1_char
     @converter.convert_sentence("A")
     @converter.join_sentence
 
-    assert_equal @convert.current_sentence, "..0.\n....\n.0.."
+    assert_equal @converter.current_sentence, "..0.\n....\n.0.."
+  end
+
+  def test_for_shift_for_2_chars
+    @converter.convert_sentence("AA")
+    @converter.join_sentence
+
+    assert_equal @converter.current_sentence, "..0...0.\n........\n.0...0.."
+  end
+
+  def test_limits_line_to_80_chars
+    long_line = "a" * 41
+    @converter.convert_sentence(long_line)
+    @converter.join_sentence
+
+    first_line = []
+    first_line << "0." * 40
+
+    second_line = []
+    second_line << ".." * 40
+
+    third_line = []
+    third_line << ".." * 40
+
+    spacer = []
+    spacer << "\n"
+
+    fourth_line = []
+    fourth_line << "0."
+
+    fifth_line = []
+    fifth_line << ".."
+
+    sixth_line = []
+    sixth_line << ".."
+
+    multi_line = [
+      first_line,
+      second_line,
+      third_line,
+      spacer,
+      fourth_line,
+      fifth_line,
+      sixth_line
+    ].join("\n")
+
+    assert_equal @converter.current_sentence, multi_line
   end
 end

@@ -44,27 +44,50 @@ class NightWriter
   end
 
   def convert_sentence(english_sentence = sentence)
-    if english_sentence.length == 1
-      braille_frag = braille_chars[english_sentence]
-      braille_frag.each do |braille|
-        self.current_sentence << braille
+    first_line  =  []
+    second_line =  []
+    third_line  =  []
+    multi_line  = []
+
+    english_sentence.each_char do |char|
+      if char == char.upcase && char != " "
+        first_line  << [".."]
+        second_line << [".."]
+        third_line  << [".0"]
+        char = char.downcase
+      end
+
+      braille_frag = braille_chars[char]
+      first_line << braille_frag[0]
+      second_line << braille_frag[1]
+      third_line << braille_frag[2]
+    end
+
+    first_line  = first_line.join
+    second_line = second_line.join
+    third_line  = third_line.join
+
+    if first_line.length > 80
+      i = first_line.length / 81
+
+      0.upto(i) do |n|
+        multi_line << first_line.slice!(0..79)
+        multi_line << second_line.slice!(0..79)
+        multi_line << third_line.slice!(0..79)
+
+        multi_line << "\n" unless n == i
       end
     else
-      first_line  =  []
-      second_line =  []
-      third_line  =  []
-
-      english_sentence.each_char do |char|
-        braille_frag = braille_chars[char]
-        first_line  << braille_frag[0]
-        second_line << braille_frag[1]
-        third_line  << braille_frag[2]
-      end
-
-      current_sentence << [first_line.join]
-      current_sentence << [second_line.join]
-      current_sentence << [third_line.join]
+      multi_line << first_line
+      multi_line << second_line
+      multi_line << third_line
     end
+
+    # current_sentence << [first_line].join
+    # current_sentence << [second_line].join
+    # current_sentence << [third_line].join
+
+    current_sentence << multi_line.join("\n")
   end
 
   def join_sentence
