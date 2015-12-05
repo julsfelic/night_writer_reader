@@ -65,12 +65,20 @@ class NightWriter
       current_sentence << [second_line.join]
       current_sentence << [third_line.join]
     end
+  end
 
-    current_sentence.join("\n")
+  def join_sentence
+    self.current_sentence = current_sentence.join("\n")
   end
 
   def return_output
+    join_sentence
     file_helper.write(current_sentence)
+    puts format_output
+  end
+
+  def format_output
+    "Created '#{ARGV[1]}' containing #{current_sentence.length} characters"
   end
 end
 
