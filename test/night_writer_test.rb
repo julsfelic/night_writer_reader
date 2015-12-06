@@ -66,6 +66,13 @@ class NightWriterTest < Minitest::Test
     assert_equal @converter.current_sentence, "..0...0.\n........\n.0...0.."
   end
 
+  def test_converts_special_chars
+    @converter.convert_sentence(" !',-.?")
+    @converter.join_sentence
+
+    assert_equal @converter.current_sentence, "..............\n..00..0...000.\n..0.0...00.000"
+  end
+
   def test_limits_line_to_80_chars
     long_line = "a" * 41
     @converter.convert_sentence(long_line)

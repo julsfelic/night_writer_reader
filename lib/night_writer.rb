@@ -33,7 +33,13 @@ class NightWriter
       "x" => ["00", "..", "00"],
       "y" => ["00", ".0", "00"],
       "z" => ["0.", ".0", "00"],
-      " " => ["..", "..", ".."]
+      " " => ["..", "..", ".."],
+      "!" => ["..", "00", "0."],
+      "'" => ["..", "..", "0."],
+      "," => ["..", "0.", ".."],
+      "-" => ["..", "..", "00"],
+      "." => ["..", "00", ".0"],
+      "?" => ["..", "0.", "00"]
     }
     @current_sentence = []
     @file_helper = FileHelper.new
@@ -47,10 +53,11 @@ class NightWriter
     first_line  =  []
     second_line =  []
     third_line  =  []
-    multi_line  = []
+    multi_line  =  []
 
     english_sentence.each_char do |char|
-      if char == char.upcase && char != " "
+      # if char == char.upcase && char != " "
+      if char == char.upcase && !" !',-.?".include?(char)
         first_line  << [".."]
         second_line << [".."]
         third_line  << [".0"]
@@ -83,10 +90,6 @@ class NightWriter
       multi_line << third_line
     end
 
-    # current_sentence << [first_line].join
-    # current_sentence << [second_line].join
-    # current_sentence << [third_line].join
-
     current_sentence << multi_line.join("\n")
   end
 
@@ -101,7 +104,7 @@ class NightWriter
   end
 
   def format_output
-    "Created '#{ARGV[1]}' containing #{current_sentence.length} characters"
+    "Created '#{ARGV[1]}' containing #{sentence.length} characters"
   end
 end
 
