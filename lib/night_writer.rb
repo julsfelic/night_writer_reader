@@ -6,6 +6,8 @@ class NightWriter
   attr_reader :braille_chars, :file_helper
 
   def initialize
+    # there is a hash method that switches keys and values USE IT IN night reader
+
     @braille_chars = {
       "a" => ["0.", "..", ".."],
       "b" => ["0.", "0.", ".."],
@@ -77,6 +79,9 @@ class NightWriter
     if first_line.length > 80
       i = first_line.length / 81
 
+      # use some type of until loop until slice! return nil or ""
+      # gets rid of if and first_line.length / 81
+
       0.upto(i) do |n|
         multi_line << first_line.slice!(0..79)
         multi_line << second_line.slice!(0..79)
@@ -104,7 +109,7 @@ class NightWriter
   end
 
   def format_output
-    "Created '#{ARGV[1]}' containing #{sentence.length} characters"
+    "Created '#{ARGV[1]}' containing #{current_sentence.length} characters"
   end
 end
 

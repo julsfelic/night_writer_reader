@@ -22,7 +22,7 @@ class NightWriterTest < Minitest::Test
     @converter.join_sentence
 
     # It should match the correct braille version
-    assert_equal @converter.current_sentence, "0.\n..\n.."
+    assert_equal "0.\n..\n..", @converter.current_sentence
   end
 
   def test_takes_in_2_chars_and_returns_braille
@@ -31,7 +31,7 @@ class NightWriterTest < Minitest::Test
     @converter.join_sentence
 
     # It should match the correct braille version
-    assert_equal @converter.current_sentence, "0.0.\n..0.\n...."
+    assert_equal "0.0.\n..0.\n....", @converter.current_sentence
   end
 
   def test_takes_in_a_word_and_returns_braille
@@ -40,7 +40,7 @@ class NightWriterTest < Minitest::Test
     @converter.join_sentence
 
     # It should match the correct braille version
-    assert_equal @converter.current_sentence, ".00.0..00.00\n00..0.0....0\n..000.....0."
+    assert_equal ".00.0..00.00\n00..0.0....0\n..000.....0.", @converter.current_sentence
   end
 
   def test_for_spaces_in_the_sentence
@@ -49,28 +49,28 @@ class NightWriterTest < Minitest::Test
     @converter.join_sentence
 
     # It should match the correct braille version
-    assert_equal @converter.current_sentence, "000.00..0.0000..0.00000.\n...........0.0...0......\n0...00....0.......0.0..."
+    assert_equal "000.00..0.0000..0.00000.\n...........0.0...0......\n0...00....0.......0.0...", @converter.current_sentence
   end
 
   def test_for_shift_for_1_char
     @converter.convert_sentence("A")
     @converter.join_sentence
 
-    assert_equal @converter.current_sentence, "..0.\n....\n.0.."
+    assert_equal "..0.\n....\n.0..", @converter.current_sentence
   end
 
   def test_for_shift_for_2_chars
     @converter.convert_sentence("AA")
     @converter.join_sentence
 
-    assert_equal @converter.current_sentence, "..0...0.\n........\n.0...0.."
+    assert_equal "..0...0.\n........\n.0...0..", @converter.current_sentence
   end
 
   def test_converts_special_chars
     @converter.convert_sentence(" !',-.?")
     @converter.join_sentence
 
-    assert_equal @converter.current_sentence, "..............\n..00..0...000.\n..0.0...00.000"
+    assert_equal "..............\n..00..0...000.\n..0.0...00.000", @converter.current_sentence
   end
 
   def test_limits_line_to_80_chars
@@ -109,6 +109,6 @@ class NightWriterTest < Minitest::Test
       sixth_line
     ].join("\n")
 
-    assert_equal @converter.current_sentence, multi_line
+    assert_equal multi_line, @converter.current_sentence
   end
 end
