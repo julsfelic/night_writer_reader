@@ -8,7 +8,8 @@ class NightReader
   def initialize
     @current_sentence = ""
     @braille_chars = {
-      "0....." => "a"
+      "0....." => "a",
+      "0.0..." => "b"
     }
     @file_helper = FileHelper.new
   end
@@ -18,8 +19,16 @@ class NightReader
   end
 
   def convert_braille(braille_sentence=sentence)
-    braille_sentence_without_newlines = braille_sentence.gsub("\n", "")
-    self.current_sentence = braille_chars[braille_sentence_without_newlines]
+    first_line, second_line, third_line = braille_sentence.split("\n")
+
+    until first_line == ""
+      current_character = ""
+      current_character += first_line.slice!(0..1)
+      current_character += second_line.slice!(0..1)
+      current_character += third_line.slice!(0..1)
+
+      self.current_sentence += braille_chars[current_character]
+    end
   end
 
   def return_output
