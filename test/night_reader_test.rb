@@ -37,4 +37,12 @@ class NightReaderTest < Minitest::Test
 
     assert_equal "max and emma", @converter.current_sentence
   end
+
+  def test_properly_shifts_capital_braille_char_into_capital_english_char
+    braille_A = "..0.\n....\n.0.."
+
+    @converter.convert_braille(braille_A)
+
+    assert_equal "A", @converter.current_sentence
+  end
 end

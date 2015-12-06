@@ -45,6 +45,7 @@ class NightReader
 
   def convert_braille(braille_sentence=sentence)
     first_line, second_line, third_line = braille_sentence.split("\n")
+    shift = false
 
     until first_line == ""
       current_character = ""
@@ -52,7 +53,16 @@ class NightReader
       current_character += second_line.slice!(0..1)
       current_character += third_line.slice!(0..1)
 
-      self.current_sentence += braille_chars[current_character]
+      if current_character == ".....0"
+        shift = true
+        next
+      elsif shift == true
+        self.current_sentence += braille_chars[current_character].upcase
+        shift = false
+      else
+        self.current_sentence += braille_chars[current_character]
+      end
+
     end
   end
 

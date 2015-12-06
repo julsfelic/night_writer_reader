@@ -52,7 +52,7 @@ class NightWriterTest < Minitest::Test
     assert_equal "000.00..0.0000..0.00000.\n...........0.0...0......\n0...00....0.......0.0...", @converter.current_sentence
   end
 
-  def test_for_shift_for_1_char
+  def test_shift_for_1_char
     @converter.convert_sentence("A")
     @converter.join_sentence
 
