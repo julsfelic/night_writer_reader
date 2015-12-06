@@ -45,4 +45,20 @@ class NightReaderTest < Minitest::Test
 
     assert_equal "A", @converter.current_sentence
   end
+
+  def test_properly_shifts_two_capital_braille_chars_into_capital_english_chars
+    braille_AA = "..0...0.\n........\n.0...0.."
+
+    @converter.convert_braille(braille_AA)
+
+    assert_equal "AA", @converter.current_sentence
+  end
+
+  def test_properly_converts_braille_special_chars_to_capital_special_chars
+    braille_special_chars = "..............\n..00..0...000.\n..0.0...00.000"
+
+    @converter.convert_braille(braille_special_chars)
+
+    assert_equal " !',-.?", @converter.current_sentence
+  end
 end
