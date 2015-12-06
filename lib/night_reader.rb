@@ -33,7 +33,8 @@ class NightReader
       ".000.0" => "w",
       "00..00" => "x",
       "00.000" => "y",
-      "0..000" => "z"
+      "0..000" => "z",
+      "......" => " "
     }
     @file_helper = FileHelper.new
   end

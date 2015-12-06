@@ -29,4 +29,12 @@ class NightReaderTest < Minitest::Test
 
     assert_equal "julian", @converter.current_sentence
   end
+
+  def test_reads_braille_spaces_into_english_spaces
+    braille_word_with_spaces = "000.00..0.0000..0.00000.\n...........0.0...0......\n0...00....0.......0.0...."
+
+    @converter.convert_braille(braille_word_with_spaces)
+
+    assert_equal "max and emma", @converter.current_sentence
+  end
 end
