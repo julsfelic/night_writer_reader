@@ -43,10 +43,10 @@ class NightReader
       first_line, second_line, third_line = braille_sentence.split("\n")
     end
 
-    slice_from_english_to_braille(first_line, second_line, third_line)
+    slice_from_braille_to_english(first_line, second_line, third_line)
   end
 
-  def slice_from_english_to_braille(first_line, second_line, third_line)
+  def slice_from_braille_to_english(first_line, second_line, third_line)
     until first_line == ""
       current_character = ""
       current_character += first_line.slice!(0..1)
