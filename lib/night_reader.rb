@@ -49,9 +49,33 @@ class NightReader
     file_helper.read
   end
 
+  def multi_line?(sentence)
+    sentence.include?("\n\n\n")
+  end
+
+  def split_multi_line(sentence)
+    sentence.split("\n\n\n")
+  end
+
+
   def convert_braille(braille_sentence=sentence)
-    first_line, second_line, third_line = braille_sentence.split("\n")
     shift = false
+    first_line  = ""
+    second_line = ""
+    third_line  = ""
+
+    if multi_line?(braille_sentence)
+      # iterate through multi_line & split on "\n"
+      multi_line = split_multi_line(braille_sentence)
+      multi_line.each do |line|
+        lines = line.split("\n")
+        first_line  += lines[0]
+        second_line += lines[1]
+        third_line  += lines[2]
+      end
+    else
+      first_line, second_line, third_line = braille_sentence.split("\n")
+    end
 
     until first_line == ""
       current_character = ""

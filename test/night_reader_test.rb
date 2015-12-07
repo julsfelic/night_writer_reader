@@ -1,9 +1,11 @@
 require 'minitest'
 require 'night_reader'
+require 'night_writer'
 
 class NightReaderTest < Minitest::Test
   def setup
     @converter = NightReader.new
+    @english_converter = NightWriter.new
   end
 
   def test_takes_in_1_braille_char_and_returns_english_char
@@ -60,5 +62,14 @@ class NightReaderTest < Minitest::Test
     @converter.convert_braille(braille_special_chars)
 
     assert_equal " !',-.?", @converter.current_sentence
+  end
+
+  def test_properly_converts_long_multi_line_braille_chars_to_english_chars
+    @english_converter.convert_sentence("Here is some really long text that is going to get cut off in Night Reader! If it doesn't get cut off then it will hopefull print on another line.")
+    braille_sentence = @english_converter.join_sentence
+
+    @converter.convert_braille(braille_sentence)
+
+    assert_equal "Here is some really long text that is going to get cut off in Night Reader! If it doesn't get cut off then it will hopefull print on another line.", @converter.current_sentence
   end
 end
