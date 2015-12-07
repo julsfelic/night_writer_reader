@@ -74,7 +74,7 @@ class NightWriter
   end
 
   def format_output
-    "Created '#{ARGV[1]}' containing #{current_sentence.length} characters"
+    "Created '#{file_helper.current_write_file}' containing #{current_sentence.length} characters"
   end
 end
 

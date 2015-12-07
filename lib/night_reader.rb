@@ -23,8 +23,8 @@ class NightReader
     sentence.split("\n\n\n")
   end
 
-
   def convert_braille(braille_sentence=sentence)
+    # Extract smaller methods out of here
     shift = false
     first_line  = ""
     second_line = ""
@@ -68,7 +68,7 @@ class NightReader
   end
 
   def format_output
-    "Created '#{ARGV[1]}' containing #{current_sentence.length} characters"
+    "Created '#{file_helper.current_write_file}' containing #{current_sentence.length} characters"
   end
 end
 
