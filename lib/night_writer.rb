@@ -1,48 +1,13 @@
 require 'pry'
 require_relative 'file_helper'
+require_relative 'characters'
 
 class NightWriter
   attr_accessor :current_sentence
-  attr_reader :braille_chars, :file_helper
+  attr_reader :file_helper
 
   def initialize
     # there is a hash method that switches keys and values USE IT IN night reader
-
-    @braille_chars = {
-      "a" => ["0.", "..", ".."],
-      "b" => ["0.", "0.", ".."],
-      "c" => ["00", '..', '..'],
-      "d" => ["00", ".0", ".."],
-      "e" => ["0.", ".0", ".."],
-      "f" => ["00", "0.", ".."],
-      "g" => ["00", "00", ".."],
-      "h" => ["0.", "00", ".."],
-      "i" => [".0", "0.", ".."],
-      "j" => [".0", "00", ".."],
-      "k" => ["0.", "..", "0."],
-      "l" => ["0.", "0.", "0."],
-      "m" => ["00", "..", "0."],
-      "n" => ["00", ".0", "0."],
-      "o" => ["0.", ".0", "0."],
-      "p" => ["00", "0.", "0."],
-      "q" => ["00", "00", "0."],
-      "r" => ["0.", "00", "0."],
-      "s" => [".0", "0.", "0."],
-      "t" => [".0", "00", "0."],
-      "u" => ["0.", "..", "00"],
-      "v" => ["0.", "0.", "00"],
-      "w" => [".0", "00", ".0"],
-      "x" => ["00", "..", "00"],
-      "y" => ["00", ".0", "00"],
-      "z" => ["0.", ".0", "00"],
-      " " => ["..", "..", ".."],
-      "!" => ["..", "00", "0."],
-      "'" => ["..", "..", "0."],
-      "," => ["..", "0.", ".."],
-      "-" => ["..", "..", "00"],
-      "." => ["..", "00", ".0"],
-      "?" => ["..", "0.", "00"]
-    }
     @current_sentence = []
     @file_helper = FileHelper.new
   end
@@ -66,7 +31,7 @@ class NightWriter
         char = char.downcase
       end
 
-      braille_frag = braille_chars[char]
+      braille_frag = Characters::ENGLISH[char]
       first_line << braille_frag[0]
       second_line << braille_frag[1]
       third_line << braille_frag[2]

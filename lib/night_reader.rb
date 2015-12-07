@@ -1,47 +1,13 @@
 require 'pry'
 require_relative 'file_helper'
+require_relative 'characters'
 
 class NightReader
   attr_accessor :current_sentence
-  attr_reader :braille_chars, :file_helper
+  attr_reader :file_helper
 
   def initialize
     @current_sentence = ""
-    @braille_chars = {
-      "0....." => "a",
-      "0.0..." => "b",
-      "00...." => "c",
-      "00.0.." => "d",
-      "0..0.." => "e",
-      "000..." => "f",
-      "0000.." => "g",
-      "0.00.." => "h",
-      ".00..." => "i",
-      ".000.." => "j",
-      "0...0." => "k",
-      "0.0.0." => "l",
-      "00..0." => "m",
-      "00.00." => "n",
-      "0..00." => "o",
-      "000.0." => "p",
-      "00000." => "q",
-      "0.000." => "r",
-      ".00.0." => "s",
-      ".0000." => "t",
-      "0...00" => "u",
-      "0.0.00" => "v",
-      ".000.0" => "w",
-      "00..00" => "x",
-      "00.000" => "y",
-      "0..000" => "z",
-      "......" => " ",
-      "..000." => "!",
-      "....0." => "'",
-      "..0..." => ",",
-      "....00" => "-",
-      "..00.0" => ".",
-      "..0.00" => "?"
-    }
     @file_helper = FileHelper.new
   end
 
@@ -87,10 +53,10 @@ class NightReader
         shift = true
         next
       elsif shift == true
-        self.current_sentence += braille_chars[current_character].upcase
+        self.current_sentence += Characters::BRAILLE[current_character].upcase
         shift = false
       else
-        self.current_sentence += braille_chars[current_character]
+        self.current_sentence += Characters::BRAILLE[current_character]
       end
 
     end
