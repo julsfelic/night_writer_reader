@@ -3,12 +3,13 @@ require_relative 'file_helper'
 require_relative 'characters'
 
 class NightReader
-  attr_accessor :current_sentence
+  attr_accessor :current_sentence, :shift
   attr_reader :file_helper
 
   def initialize
     @current_sentence = ""
     @file_helper = FileHelper.new
+    @shift = false
   end
 
   def sentence
@@ -25,7 +26,6 @@ class NightReader
 
   def convert_braille(braille_sentence=sentence)
     # Extract smaller methods out of here
-    shift = false
     first_line  = ""
     second_line = ""
     third_line  = ""
@@ -43,6 +43,10 @@ class NightReader
       first_line, second_line, third_line = braille_sentence.split("\n")
     end
 
+    slice_from_english_to_braille(first_line, second_line, third_line)
+  end
+
+  def slice_from_english_to_braille(first_line, second_line, third_line)
     until first_line == ""
       current_character = ""
       current_character += first_line.slice!(0..1)
@@ -50,15 +54,14 @@ class NightReader
       current_character += third_line.slice!(0..1)
 
       if current_character == ".....0"
-        shift = true
+        self.shift = true
         next
       elsif shift == true
         self.current_sentence += Characters::BRAILLE[current_character].upcase
-        shift = false
+        self.shift = false
       else
         self.current_sentence += Characters::BRAILLE[current_character]
       end
-
     end
   end
 
