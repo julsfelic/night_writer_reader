@@ -16,7 +16,7 @@ class NightWriterTest < Minitest::Test
     assert_equal @converter.format_output, "Created 'braille.txt' containing 20 characters"
   end
 
-  def test_takes_in_1_char_and_returns_braille
+  def test_takes_in_1_english_char_and_returns_braille_char
     # We pass in the character we want converted
     @converter.convert_sentence("a")
     @converter.join_sentence
@@ -25,7 +25,7 @@ class NightWriterTest < Minitest::Test
     assert_equal "0.\n..\n..", @converter.current_sentence
   end
 
-  def test_takes_in_2_chars_and_returns_braille
+  def test_takes_in_2_english_chars_and_returns_braille_chars
     # We pass in the two characters we want converted
     @converter.convert_sentence("ab")
     @converter.join_sentence
@@ -34,7 +34,7 @@ class NightWriterTest < Minitest::Test
     assert_equal "0.0.\n..0.\n....", @converter.current_sentence
   end
 
-  def test_takes_in_a_word_and_returns_braille
+  def test_takes_in_an_english_word_and_returns_braille_word
     # We pass in the two characters we want converted
     @converter.convert_sentence("julian")
     @converter.join_sentence
@@ -43,7 +43,7 @@ class NightWriterTest < Minitest::Test
     assert_equal ".00.0..00.00\n00..0.0....0\n..000.....0.", @converter.current_sentence
   end
 
-  def test_for_spaces_in_the_sentence
+  def test_reads_english_spaces_to_braille_spaces
     # We pass in the two characters we want converted
     @converter.convert_sentence("max and emma")
     @converter.join_sentence
@@ -52,21 +52,21 @@ class NightWriterTest < Minitest::Test
     assert_equal "000.00..0.0000..0.00000.\n...........0.0...0......\n0...00....0.......0.0...", @converter.current_sentence
   end
 
-  def test_shift_for_1_char
+  def test_properly_shifts_capital_english_char_into_capital_braille_char
     @converter.convert_sentence("A")
     @converter.join_sentence
 
     assert_equal "..0.\n....\n.0..", @converter.current_sentence
   end
 
-  def test_for_shift_for_2_chars
+  def test_properly_shifts_two_capital_english_char_into_braille_chars
     @converter.convert_sentence("AA")
     @converter.join_sentence
 
     assert_equal "..0...0.\n........\n.0...0..", @converter.current_sentence
   end
 
-  def test_converts_special_chars
+  def test_properly_converts_english_special_chars_to_braille_special_chars
     @converter.convert_sentence(" !',-.?")
     @converter.join_sentence
 

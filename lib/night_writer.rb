@@ -114,7 +114,7 @@ class NightWriter
 end
 
 if __FILE__ == $0
-  @converter = NightWriter.new
-  @converter.convert_sentence
-  @converter.return_output
+  converter = NightWriter.new
+  converter.convert_sentence
+  converter.return_output
 end
